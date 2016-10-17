@@ -1,0 +1,3 @@
+mysql --host=us-cdbr-azure-east-a.cloudapp.net --user=b068a96499d036 --password=2c4041cb eagertobp
+
+bundle exec rake db:schema:dump
