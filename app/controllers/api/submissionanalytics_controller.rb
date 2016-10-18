@@ -1,4 +1,5 @@
 class Api::SubmissionanalyticsController < ApplicationController
+
   def index
     @submissionanalytics = Submissionanalytics.first(5)
     render :index
@@ -14,4 +15,5 @@ class Api::SubmissionanalyticsController < ApplicationController
   def submissionanalytics_params
 
   end
+
 end
