@@ -1,13 +1,10 @@
 //React
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import SearchForm from './components/search/search_form';
-
-const App = () => (
-  <div>Hello World</div>
-);
+import configureStore from './store/store';
+import Root from './components/root';
 
 document.addEventListener("DOMContentLoaded", function() {
-  ReactDOM.render(<SearchForm />, document.getElementById('content'));
+  const store = configureStore();
+  ReactDOM.render(<Root store={store}/>, document.getElementById('content'));
 });
