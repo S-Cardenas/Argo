@@ -1,9 +1,0 @@
-mysql --host=us-cdbr-azure-east-a.cloudapp.net --user=b068a96499d036 --password=2c4041cb eagertobp
-
-bundle exec rake db:schema:dump
-
-What the app should show:
-
-1. Show all submisions.
-2. Sort the submissions by paramaters.
-3. Find a submission by certain paramaters.
