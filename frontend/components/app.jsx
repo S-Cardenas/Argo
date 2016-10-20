@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router';
+import { withRouter, Link, hashHistory } from 'react-router';
 
 class App extends React.Component {
 
@@ -8,8 +8,18 @@ class App extends React.Component {
     this.migrate = this.migrate.bind(this);
   }
 
-  migrate() {
-    this.props.router.push('/submissions');
+  migrate(e) {
+    e.preventDefault();
+    var query = {
+      page: 0,
+      order: 'RECEIVED_DATE'
+    };
+
+    hashHistory.push({
+      pathname: '/submissions',
+      query: query,
+      state: {}
+    });
   }
 
   render() {
@@ -23,4 +33,4 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App);
+export default App;

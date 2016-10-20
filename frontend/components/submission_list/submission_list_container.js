@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestSubmissions: () => dispatch(requestSubmissions())
+  requestSubmissions: (query) => dispatch(requestSubmissions(query))
 });
 
 export default connect(

@@ -10,7 +10,7 @@ export default ({ getState, dispatch }) => next => action => {
 
   switch(action.type) {
     case REQUEST_SUBMISSIONS:
-      fetchSubmissions(submissionsSuccess, error);
+      fetchSubmissions(action.query, submissionsSuccess, error);
       break;
     default:
       next(action);
