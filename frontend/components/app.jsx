@@ -1,5 +1,6 @@
 import React from 'react';
-import { withRouter, Link, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
+import SearchForm from './search/search_form';
 
 class App extends React.Component {
 
@@ -27,7 +28,7 @@ class App extends React.Component {
       <div className="app">
         <h1 className="main-header">Argo Digital</h1>
         <div onClick={this.migrate}>View All Subissions</div>
-        <Link to="/submissions">Other link</Link>
+        <SearchForm />
       </div>
     );
   }

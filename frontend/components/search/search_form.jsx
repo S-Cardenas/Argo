@@ -6,7 +6,10 @@ class SearchForm extends React.Component {
     super(props);
     this.state = {
       agent: "",
-      date: ""
+      insuredName: "",
+      underwriterName: "",
+      minDate: "",
+      maxDate: ""
     };
   }
 
@@ -17,8 +20,6 @@ class SearchForm extends React.Component {
   handleSubmit() {
     return(e) => {
       e.preventDefault();
-      this.setState({agent: "", date: ""}); //reset the form
-      console.log(hashHistory);
       hashHistory.push({
         pathname: '/search',
         query: this.state,
@@ -28,26 +29,46 @@ class SearchForm extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return(
       <form className="search-form" onSubmit={this.handleSubmit()}>
-        <label>Agent
+        <h1>Search Submissions</h1>
+        <label>Agent Name
           <input
-            className="input"
+            className="input agent-name"
             ref="agent"
             value={this.state.agent}
             placeholder="John Doe"
-            onChange={this.update('agent')}
+            onChange={this.update('agent')}/>
+        </label>
+        <label>Insured Name
+          <input
+            className="input insured-name"
+            ref="insured name"
+            value={this.state.insuredName}
+            onChange={this.update('insuredName')}
             required/>
         </label>
-        <label>Date
-          <textarea
-            className="input"
-            ref="date"
-            value={this.state.date}
-            onChange={this.update('date')}
-            required>
-          </textarea>
+        <label>Underwriter Name
+          <input
+            className="input under-name"
+            ref="underwriter name"
+            value={this.state.underwriterName}
+            onChange={this.update('underwriterName')}
+            required/>
         </label>
+        <label>Earliest Date
+          <input
+            type="date"
+            onChange={this.update('minDate')}/>
+        </label>
+        <label> Latest Date
+          <input
+            type="date"
+            onChange={this.update('maxDate')}/>
+        </label>
+
+
         <button className="create-button">Search!</button>
       </form>
     );

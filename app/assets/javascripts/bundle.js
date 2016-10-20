@@ -28951,6 +28951,10 @@
 	
 	var _reactRouter = __webpack_require__(204);
 	
+	var _search_form = __webpack_require__(271);
+	
+	var _search_form2 = _interopRequireDefault(_search_form);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29002,11 +29006,7 @@
 	          { onClick: this.migrate },
 	          'View All Subissions'
 	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/submissions' },
-	          'Other link'
-	        )
+	        _react2.default.createElement(_search_form2.default, null)
 	      );
 	    }
 	  }]);
@@ -29210,6 +29210,150 @@
 	    return state.submissions[key];
 	  }) : [];
 	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(204);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SearchForm = function (_React$Component) {
+	  _inherits(SearchForm, _React$Component);
+	
+	  function SearchForm(props) {
+	    _classCallCheck(this, SearchForm);
+	
+	    var _this = _possibleConstructorReturn(this, (SearchForm.__proto__ || Object.getPrototypeOf(SearchForm)).call(this, props));
+	
+	    _this.state = {
+	      agent: "",
+	      insuredName: "",
+	      underwriterName: "",
+	      minDate: "",
+	      maxDate: ""
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(SearchForm, [{
+	    key: 'update',
+	    value: function update(property) {
+	      var _this2 = this;
+	
+	      return function (e) {
+	        return _this2.setState(_defineProperty({}, property, e.target.value));
+	      };
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      var _this3 = this;
+	
+	      return function (e) {
+	        e.preventDefault();
+	        _reactRouter.hashHistory.push({
+	          pathname: '/search',
+	          query: _this3.state,
+	          state: {}
+	        });
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.state);
+	      return _react2.default.createElement(
+	        'form',
+	        { className: 'search-form', onSubmit: this.handleSubmit() },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Search Submissions'
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Agent Name',
+	          _react2.default.createElement('input', {
+	            className: 'input agent-name',
+	            ref: 'agent',
+	            value: this.state.agent,
+	            placeholder: 'John Doe',
+	            onChange: this.update('agent') })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Insured Name',
+	          _react2.default.createElement('input', {
+	            className: 'input insured-name',
+	            ref: 'insured name',
+	            value: this.state.insuredName,
+	            onChange: this.update('insuredName'),
+	            required: true })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Underwriter Name',
+	          _react2.default.createElement('input', {
+	            className: 'input under-name',
+	            ref: 'underwriter name',
+	            value: this.state.underwriterName,
+	            onChange: this.update('underwriterName'),
+	            required: true })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Earliest Date',
+	          _react2.default.createElement('input', {
+	            type: 'date',
+	            onChange: this.update('minDate') })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          ' Latest Date',
+	          _react2.default.createElement('input', {
+	            type: 'date',
+	            onChange: this.update('maxDate') })
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'create-button' },
+	          'Search!'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return SearchForm;
+	}(_react2.default.Component);
+	
+	exports.default = SearchForm;
 
 /***/ }
 /******/ ]);
