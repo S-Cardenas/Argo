@@ -22567,6 +22567,10 @@
 	
 	var _search_list_container2 = _interopRequireDefault(_search_list_container);
 	
+	var _submission_container = __webpack_require__(275);
+	
+	var _submission_container2 = _interopRequireDefault(_submission_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Root = function Root(_ref) {
@@ -22582,6 +22586,7 @@
 	        { path: '/' },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _app2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/submissions', component: _submission_list_container2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/submissions/:id', component: _submission_container2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/search', component: _search_list_container2.default })
 	      )
 	    )
@@ -29583,6 +29588,12 @@
 	    query: query
 	  };
 	};
+
+/***/ },
+/* 275 */
+/***/ function(module, exports) {
+
+	"use strict";
 
 /***/ }
 /******/ ]);

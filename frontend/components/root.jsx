@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import SubmissionListContainer from './submission_list/submission_list_container';
 import SearchListContainer from './search/search_list_container';
+import Submission from './submission/submission_container';
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -11,6 +12,7 @@ const Root = ({ store }) => (
       <Route path="/" >
         <IndexRoute component={App}/>
         <Route path="/submissions" component={SubmissionListContainer} />
+        <Route path="/submissions/:id" component={Submission} />
         <Route path="/search" component={SearchListContainer} />
       </Route>
     </Router>
