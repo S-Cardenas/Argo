@@ -2,7 +2,10 @@ import { REQUEST_SUBMISSIONS,
          RECEIVE_SUBMISSIONS,
          receiveSubmissions } from '../actions/submission_actions.js';
 
-import { fetchSubmissions } from '../util/api_util';
+import { REQUEST_SEARCH } from '../actions/search_actions.js';
+
+import { fetchSubmissions,
+         fetchSearch } from '../util/api_util';
 
 export default ({ getState, dispatch }) => next => action => {
   const submissionsSuccess = (data) => dispatch(receiveSubmissions(data));
@@ -11,6 +14,9 @@ export default ({ getState, dispatch }) => next => action => {
   switch(action.type) {
     case REQUEST_SUBMISSIONS:
       fetchSubmissions(action.query, submissionsSuccess, error);
+      break;
+    case REQUEST_SEARCH:
+      fetchSearch(action.query, submissionsSuccess, error);
       break;
     default:
       next(action);

@@ -8,8 +8,10 @@ class SearchForm extends React.Component {
       agent: "",
       insuredName: "",
       underwriterName: "",
-      minDate: "",
-      maxDate: ""
+      minQuoteDate: "",
+      maxQuoteDate: "",
+      page: 0,
+      sort: 'RECEIVED_DATE'
     };
   }
 
@@ -46,23 +48,21 @@ class SearchForm extends React.Component {
             className="input insured-name"
             ref="insured name"
             value={this.state.insuredName}
-            onChange={this.update('insuredName')}
-            required/>
+            onChange={this.update('insuredName')}/>
         </label>
         <label>Underwriter Name
           <input
             className="input under-name"
             ref="underwriter name"
             value={this.state.underwriterName}
-            onChange={this.update('underwriterName')}
-            required/>
+            onChange={this.update('underwriterName')}/>
         </label>
-        <label>Earliest Date
+        <label>Earliest Quote Date
           <input
             type="date"
             onChange={this.update('minDate')}/>
         </label>
-        <label> Latest Date
+        <label> Latest Quote Date
           <input
             type="date"
             onChange={this.update('maxDate')}/>

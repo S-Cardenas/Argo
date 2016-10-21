@@ -22476,6 +22476,8 @@
 	
 	var _submission_actions = __webpack_require__(190);
 	
+	var _search_actions = __webpack_require__(274);
+	
 	var _api_util = __webpack_require__(193);
 	
 	exports.default = function (_ref) {
@@ -22493,6 +22495,9 @@
 	      switch (action.type) {
 	        case _submission_actions.REQUEST_SUBMISSIONS:
 	          (0, _api_util.fetchSubmissions)(action.query, submissionsSuccess, error);
+	          break;
+	        case _search_actions.REQUEST_SEARCH:
+	          (0, _api_util.fetchSearch)(action.query, submissionsSuccess, error);
 	          break;
 	        default:
 	          next(action);
@@ -22514,6 +22519,17 @@
 	  $.ajax({
 	    method: 'GET',
 	    url: 'api/submissionanalytics',
+	    dataType: 'JSON',
+	    data: query,
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var fetchSearch = exports.fetchSearch = function fetchSearch(query, success, error) {
+	  $.ajax({
+	    method: 'GET',
+	    url: 'api/search',
 	    dataType: 'JSON',
 	    data: query,
 	    success: success,
@@ -22547,6 +22563,10 @@
 	
 	var _submission_list_container2 = _interopRequireDefault(_submission_list_container);
 	
+	var _search_list_container = __webpack_require__(272);
+	
+	var _search_list_container2 = _interopRequireDefault(_search_list_container);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Root = function Root(_ref) {
@@ -22561,7 +22581,8 @@
 	        _reactRouter.Route,
 	        { path: '/' },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _app2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/submissions', component: _submission_list_container2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: '/submissions', component: _submission_list_container2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/search', component: _search_list_container2.default })
 	      )
 	    )
 	  );
@@ -29251,8 +29272,10 @@
 	      agent: "",
 	      insuredName: "",
 	      underwriterName: "",
-	      minDate: "",
-	      maxDate: ""
+	      minQuoteDate: "",
+	      maxQuoteDate: "",
+	      page: 0,
+	      sort: 'RECEIVED_DATE'
 	    };
 	    return _this;
 	  }
@@ -29311,8 +29334,7 @@
 	            className: 'input insured-name',
 	            ref: 'insured name',
 	            value: this.state.insuredName,
-	            onChange: this.update('insuredName'),
-	            required: true })
+	            onChange: this.update('insuredName') })
 	        ),
 	        _react2.default.createElement(
 	          'label',
@@ -29322,13 +29344,12 @@
 	            className: 'input under-name',
 	            ref: 'underwriter name',
 	            value: this.state.underwriterName,
-	            onChange: this.update('underwriterName'),
-	            required: true })
+	            onChange: this.update('underwriterName') })
 	        ),
 	        _react2.default.createElement(
 	          'label',
 	          null,
-	          'Earliest Date',
+	          'Earliest Quote Date',
 	          _react2.default.createElement('input', {
 	            type: 'date',
 	            onChange: this.update('minDate') })
@@ -29336,7 +29357,7 @@
 	        _react2.default.createElement(
 	          'label',
 	          null,
-	          ' Latest Date',
+	          ' Latest Quote Date',
 	          _react2.default.createElement('input', {
 	            type: 'date',
 	            onChange: this.update('maxDate') })
@@ -29354,6 +29375,214 @@
 	}(_react2.default.Component);
 	
 	exports.default = SearchForm;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(195);
+	
+	var _search_results = __webpack_require__(273);
+	
+	var _search_results2 = _interopRequireDefault(_search_results);
+	
+	var _selector = __webpack_require__(270);
+	
+	var _search_actions = __webpack_require__(274);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    submissions: (0, _selector.allSubmissions)(state)
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    requestSearch: function requestSearch(query) {
+	      return dispatch((0, _search_actions.requestSearch)(query));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_search_results2.default);
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(204);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SearchResults = function (_React$Component) {
+	  _inherits(SearchResults, _React$Component);
+	
+	  function SearchResults() {
+	    _classCallCheck(this, SearchResults);
+	
+	    var _this = _possibleConstructorReturn(this, (SearchResults.__proto__ || Object.getPrototypeOf(SearchResults)).call(this));
+	
+	    _this.migrate = _this.migrate.bind(_this);
+	    _this.sortBy = _this.sortBy.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SearchResults, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.requestSearch(this.props.location.query);
+	    }
+	  }, {
+	    key: 'migrate',
+	    value: function migrate() {
+	      var nextPage = parseInt(this.props.location.query.page) + 1;
+	      var query = {
+	        agent: this.props.location.query.agent,
+	        insuredName: this.props.location.query.insuredName,
+	        underwriterName: this.props.location.query.underwriterName,
+	        minQuoteDate: this.props.location.query.minQuoteDate,
+	        maxQuoteDate: this.props.location.query.maxQuoteDate,
+	        page: nextPage,
+	        sort: this.props.location.query.sort
+	      };
+	
+	      _reactRouter.hashHistory.push({
+	        pathname: '/search',
+	        query: query,
+	        state: {}
+	      });
+	
+	      this.props.requestSearch(query);
+	    }
+	  }, {
+	    key: 'sortBy',
+	    value: function sortBy(e) {
+	      e.preventDefault();
+	      var query = {
+	        agent: this.props.location.query.agent,
+	        insuredName: this.props.location.query.insuredName,
+	        underwriterName: this.props.location.query.underwriterName,
+	        minQuoteDate: this.props.location.query.minQuoteDate,
+	        maxQuoteDate: this.props.location.query.maxQuoteDate,
+	        page: 0,
+	        sort: e.currentTarget.value
+	      };
+	
+	      _reactRouter.hashHistory.push({
+	        pathname: '/search',
+	        query: query,
+	        state: {}
+	      });
+	
+	      this.props.requestSearch(query);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var submissions = this.props.submissions;
+	
+	      var list = submissions.map(function (submission) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: submission.ID },
+	          submission.AGENT_NAME
+	        );
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'select',
+	          { className: 'dropdown-select', onChange: this.sortBy },
+	          _react2.default.createElement(
+	            'option',
+	            { selected: true, disabled: true },
+	            'SORT BY'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'AGENT_NAME' },
+	            'AGENT NAME'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'RECEIVED_DATE' },
+	            'RECEIVED DATE'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'QUOTED_DATE' },
+	            'QUOTED DATE'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'BUSINESS_UNIT_NAME' },
+	            'BUSINESS UNIT NAME'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          list
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { onClick: this.migrate },
+	          'Next'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return SearchResults;
+	}(_react2.default.Component);
+	
+	exports.default = SearchResults;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var REQUEST_SEARCH = exports.REQUEST_SEARCH = 'REQUEST_SEARCH';
+	
+	var requestSearch = exports.requestSearch = function requestSearch(query) {
+	  return {
+	    type: REQUEST_SEARCH,
+	    query: query
+	  };
+	};
 
 /***/ }
 /******/ ]);
