@@ -31,46 +31,54 @@ class SearchForm extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return(
-      <form className="search-form" onSubmit={this.handleSubmit()}>
+      <div className="search-form-container">
         <h1>Search Submissions</h1>
-        <label>Agent Name
+        <form className="search-form" onSubmit={this.handleSubmit()}>
+
+          <label>Agent Name</label>
           <input
-            className="input agent-name"
+            className="input-text"
             ref="agent"
             value={this.state.agent}
             placeholder="John Doe"
             onChange={this.update('agent')}/>
-        </label>
-        <label>Insured Name
+
+          <label>Insured Name</label>
           <input
-            className="input insured-name"
+            className="input-text"
             ref="insured name"
             value={this.state.insuredName}
+            placeholder="Jane Doe"
             onChange={this.update('insuredName')}/>
-        </label>
-        <label>Underwriter Name
+
+          <label>Underwriter Name</label>
           <input
-            className="input under-name"
+            className="input-text"
             ref="underwriter name"
             value={this.state.underwriterName}
+            placeholder="Thomas Anderson"
             onChange={this.update('underwriterName')}/>
-        </label>
-        <label>Earliest Quote Date
+
+          <br/>
+
+          <label>Earliest Quote Date</label>
           <input
             type="date"
+            className="input-date"
             onChange={this.update('minDate')}/>
-        </label>
-        <label> Latest Quote Date
+
+          <label> Latest Quote Date</label>
           <input
             type="date"
+            className="input-date"
             onChange={this.update('maxDate')}/>
-        </label>
 
+          <br/>
 
-        <button className="create-button">Search!</button>
-      </form>
+          <button className="search-button">Search!</button>
+        </form>
+      </div>
     );
   }
 
