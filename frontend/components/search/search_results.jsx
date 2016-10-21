@@ -60,7 +60,7 @@ class SearchResults extends React.Component {
     var list = submissions.map(submission => {
       return (
         <div className="submission-item group" key={submission.ID}>
-          <Link to={"/submisions/" + submission.ID}>
+          <Link to={"/submissions/" + submission.ID}>
             <ul className="submission-listing">
               <li>
                 ID: {submission.ID}

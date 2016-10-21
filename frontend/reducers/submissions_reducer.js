@@ -1,9 +1,11 @@
-import { RECEIVE_SUBMISSIONS } from '../actions/submission_actions';
+import { RECEIVE_SUBMISSIONS,
+         RECEIVE_SUBMISSION,
+         RESET_STATE} from '../actions/submission_actions';
 
 const SubmissionsReducer = (state = {}, action) => {
+  let newState = {};
   switch(action.type) {
     case RECEIVE_SUBMISSIONS:
-      let newState = {};
       action.submissions.forEach(submission => newState[submission.ID] = submission);
       return newState;
     default:

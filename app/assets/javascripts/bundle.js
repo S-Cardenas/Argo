@@ -67,6 +67,7 @@
 	//React
 	document.addEventListener("DOMContentLoaded", function () {
 	  var store = (0, _store2.default)();
+	  window.store = store;
 	  _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), document.getElementById('content'));
 	});
 
@@ -22368,10 +22369,15 @@
 	
 	var _submissions_reducer2 = _interopRequireDefault(_submissions_reducer);
 	
+	var _submission_reducer = __webpack_require__(277);
+	
+	var _submission_reducer2 = _interopRequireDefault(_submission_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var RootReducer = (0, _redux.combineReducers)({
-	  submissions: _submissions_reducer2.default
+	  submissions: _submissions_reducer2.default,
+	  currentSubmission: _submission_reducer2.default
 	});
 	
 	exports.default = RootReducer;
@@ -22386,32 +22392,22 @@
 	  value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
 	var _submission_actions = __webpack_require__(190);
 	
 	var SubmissionsReducer = function SubmissionsReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	  var action = arguments[1];
 	
-	  var _ret = function () {
-	    switch (action.type) {
-	      case _submission_actions.RECEIVE_SUBMISSIONS:
-	        var newState = {};
-	        action.submissions.forEach(function (submission) {
-	          return newState[submission.ID] = submission;
-	        });
-	        return {
-	          v: newState
-	        };
-	      default:
-	        return {
-	          v: state
-	        };
-	    }
-	  }();
-	
-	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	  var newState = {};
+	  switch (action.type) {
+	    case _submission_actions.RECEIVE_SUBMISSIONS:
+	      action.submissions.forEach(function (submission) {
+	        return newState[submission.ID] = submission;
+	      });
+	      return newState;
+	    default:
+	      return state;
+	  }
 	};
 	
 	exports.default = SubmissionsReducer;
@@ -22427,6 +22423,10 @@
 	});
 	var REQUEST_SUBMISSIONS = exports.REQUEST_SUBMISSIONS = 'REQUEST_SUBMISSIONS';
 	var RECEIVE_SUBMISSIONS = exports.RECEIVE_SUBMISSIONS = 'RECEIVE_SUBMISSIONS';
+	var REQUEST_SUBMISSION = exports.REQUEST_SUBMISSION = 'REQUEST_SUBMISSION';
+	var RECEIVE_SUBMISSION = exports.RECEIVE_SUBMISSION = 'RECEIVE_SUBMISSION';
+	var RESET_STATE = exports.RESET_STATE = 'RESET_STATE';
+	var RESET_STATE2 = exports.RESET_STATE2 = 'RESET_STATE2';
 	
 	var requestSubmissions = exports.requestSubmissions = function requestSubmissions(query) {
 	  return {
@@ -22435,10 +22435,36 @@
 	  };
 	};
 	
+	var requestSubmission = exports.requestSubmission = function requestSubmission(data) {
+	  return {
+	    type: REQUEST_SUBMISSION,
+	    data: data
+	  };
+	};
+	
 	var receiveSubmissions = exports.receiveSubmissions = function receiveSubmissions(submissions) {
 	  return {
 	    type: RECEIVE_SUBMISSIONS,
 	    submissions: submissions
+	  };
+	};
+	
+	var receiveSubmission = exports.receiveSubmission = function receiveSubmission(submission) {
+	  return {
+	    type: RECEIVE_SUBMISSION,
+	    submission: submission
+	  };
+	};
+	
+	var resetState = exports.resetState = function resetState() {
+	  return {
+	    type: RESET_STATE
+	  };
+	};
+	
+	var receiveResetState = exports.receiveResetState = function receiveResetState() {
+	  return {
+	    type: RESET_STATE2
 	  };
 	};
 
@@ -22488,6 +22514,9 @@
 	      var submissionsSuccess = function submissionsSuccess(data) {
 	        return dispatch((0, _submission_actions.receiveSubmissions)(data));
 	      };
+	      var submissionSuccess = function submissionSuccess(data) {
+	        return dispatch((0, _submission_actions.receiveSubmission)(data));
+	      };
 	      var error = function error(e) {
 	        return console.log(e);
 	      };
@@ -22496,8 +22525,15 @@
 	        case _submission_actions.REQUEST_SUBMISSIONS:
 	          (0, _api_util.fetchSubmissions)(action.query, submissionsSuccess, error);
 	          break;
+	        case _submission_actions.REQUEST_SUBMISSION:
+	          (0, _api_util.fetchSubmission)(action.data, submissionSuccess, error);
+	          break;
 	        case _search_actions.REQUEST_SEARCH:
 	          (0, _api_util.fetchSearch)(action.query, submissionsSuccess, error);
+	          break;
+	        case _submission_actions.RESET_STATE:
+	          console.log('middleware');
+	          dispatch((0, _submission_actions.receiveResetState)());
 	          break;
 	        default:
 	          next(action);
@@ -22539,6 +22575,16 @@
 	    url: 'api/submissionanalytics',
 	    dataType: 'JSON',
 	    data: query,
+	    success: success,
+	    error: error
+	  });
+	};
+	
+	var fetchSubmission = exports.fetchSubmission = function fetchSubmission(data, success, error) {
+	  $.ajax({
+	    method: 'GET',
+	    url: 'api/submissionanalytics/' + data,
+	    dataType: 'JSON',
 	    success: success,
 	    error: error
 	  });
@@ -29250,6 +29296,9 @@
 	  return {
 	    requestSubmissions: function requestSubmissions(query) {
 	      return dispatch((0, _submission_actions.requestSubmissions)(query));
+	    },
+	    resetState: function resetState() {
+	      return dispatch((0, _submission_actions.resetState)());
 	    }
 	  };
 	};
@@ -29345,7 +29394,7 @@
 	          { className: 'submission-item group', key: submission.ID },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: "/submisions/" + submission.ID },
+	            { to: "/submissions/" + submission.ID },
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'submission-listing' },
@@ -29481,6 +29530,10 @@
 	  return state ? Object.keys(state.submissions).map(function (key) {
 	    return state.submissions[key];
 	  }) : [];
+	};
+	
+	var currentSubmission = exports.currentSubmission = function currentSubmission(state) {
+	  return state ? state.currentSubmission : {};
 	};
 
 /***/ },
@@ -29620,7 +29673,7 @@
 	          { className: 'submission-item group', key: submission.ID },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: "/submisions/" + submission.ID },
+	            { to: "/submissions/" + submission.ID },
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'submission-listing' },
@@ -29745,9 +29798,135 @@
 
 /***/ },
 /* 275 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(196);
+	
+	var _submission = __webpack_require__(276);
+	
+	var _submission2 = _interopRequireDefault(_submission);
+	
+	var _selector = __webpack_require__(272);
+	
+	var _submission_actions = __webpack_require__(190);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    submission: (0, _selector.currentSubmission)(state)
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    requestSubmission: function requestSubmission(data) {
+	      return dispatch((0, _submission_actions.requestSubmission)(data));
+	    },
+	    resetState: function resetState() {
+	      return dispatch((0, _submission_actions.resetState)());
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_submission2.default);
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Submission = function (_React$Component) {
+	  _inherits(Submission, _React$Component);
+	
+	  function Submission() {
+	    _classCallCheck(this, Submission);
+	
+	    return _possibleConstructorReturn(this, (Submission.__proto__ || Object.getPrototypeOf(Submission)).apply(this, arguments));
+	  }
+	
+	  _createClass(Submission, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.requestSubmission(this.props.params.id);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.props.resetState();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var submission = this.props.submission;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        submission.AGENT_NAME
+	      );
+	    }
+	  }]);
+	
+	  return Submission;
+	}(_react2.default.Component);
+	
+	exports.default = Submission;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _submission_actions = __webpack_require__(190);
+	
+	var SubmissionReducer = function SubmissionReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  var newState = {};
+	  switch (action.type) {
+	    case _submission_actions.RECEIVE_SUBMISSION:
+	      newState = action.submission;
+	      return newState;
+	    case _submission_actions.RESET_STATE2:
+	      return newState;
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = SubmissionReducer;
 
 /***/ }
 /******/ ]);
