@@ -29153,6 +29153,9 @@
 	      underwriterName: "",
 	      minQuoteDate: "",
 	      maxQuoteDate: "",
+	      minReceivedDate: "",
+	      maxReceivedDate: "",
+	      quotedStatus: "",
 	      page: 0,
 	      sort: 'RECEIVED_DATE'
 	    };
@@ -29238,7 +29241,7 @@
 	          _react2.default.createElement('input', {
 	            type: 'date',
 	            className: 'input-date',
-	            onChange: this.update('minDate') }),
+	            onChange: this.update('minQuoteDate') }),
 	          _react2.default.createElement(
 	            'label',
 	            null,
@@ -29247,7 +29250,52 @@
 	          _react2.default.createElement('input', {
 	            type: 'date',
 	            className: 'input-date',
-	            onChange: this.update('maxDate') }),
+	            onChange: this.update('maxQuoteDate') }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Earliest Received Date'
+	          ),
+	          _react2.default.createElement('input', {
+	            type: 'date',
+	            className: 'input-date',
+	            onChange: this.update('minReceivedDate') }),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Latest Received Date'
+	          ),
+	          _react2.default.createElement('input', {
+	            type: 'date',
+	            className: 'input-date',
+	            onChange: this.update('maxReceivedDate') }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Quoted Status'
+	          ),
+	          _react2.default.createElement(
+	            'select',
+	            { className: 'dropdown-select', onChange: this.update('quotedStatus') },
+	            _react2.default.createElement(
+	              'option',
+	              { selected: 'true', disabled: 'disabled' },
+	              'TRUE/FALSE'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'TRUE' },
+	              'TRUE'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'FALSE' },
+	              'FALSE'
+	            )
+	          ),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
 	            'button',
@@ -29529,8 +29577,8 @@
 	            ),
 	            _react2.default.createElement(
 	              'option',
-	              { value: 'BUSINESS_UNIT_NAME' },
-	              'BUSINESS UNIT NAME'
+	              { value: 'OPERATING_UNIT_NAME' },
+	              'OPERATING UNIT NAME'
 	            )
 	          )
 	        ),
@@ -29664,6 +29712,9 @@
 	        underwriterName: this.props.location.query.underwriterName,
 	        minQuoteDate: this.props.location.query.minQuoteDate,
 	        maxQuoteDate: this.props.location.query.maxQuoteDate,
+	        minReceivedDate: this.props.location.query.minReceivedDate,
+	        maxReceivedDate: this.props.location.query.maxReceivedDate,
+	        quotedStatus: this.props.location.query.quotedStatus,
 	        page: nextPage,
 	        sort: this.props.location.query.sort
 	      };
@@ -29686,6 +29737,9 @@
 	        underwriterName: this.props.location.query.underwriterName,
 	        minQuoteDate: this.props.location.query.minQuoteDate,
 	        maxQuoteDate: this.props.location.query.maxQuoteDate,
+	        minReceivedDate: this.props.location.query.minReceivedDate,
+	        maxReceivedDate: this.props.location.query.maxReceivedDate,
+	        quotedStatus: this.props.location.query.quotedStatus,
 	        page: 0,
 	        sort: e.currentTarget.value
 	      };
@@ -29844,8 +29898,8 @@
 	            ),
 	            _react2.default.createElement(
 	              'option',
-	              { value: 'BUSINESS_UNIT_NAME' },
-	              'BUSINESS UNIT NAME'
+	              { value: 'OPERATING_UNIT_NAME' },
+	              'OPERATING UNIT NAME'
 	            )
 	          )
 	        ),

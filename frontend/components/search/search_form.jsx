@@ -10,6 +10,9 @@ class SearchForm extends React.Component {
       underwriterName: "",
       minQuoteDate: "",
       maxQuoteDate: "",
+      minReceivedDate: "",
+      maxReceivedDate: "",
+      quotedStatus: "",
       page: 0,
       sort: 'RECEIVED_DATE'
     };
@@ -66,14 +69,39 @@ class SearchForm extends React.Component {
           <input
             type="date"
             className="input-date"
-            onChange={this.update('minDate')}/>
+            onChange={this.update('minQuoteDate')}/>
 
           <label> Latest Quote Date</label>
           <input
             type="date"
             className="input-date"
-            onChange={this.update('maxDate')}/>
+            onChange={this.update('maxQuoteDate')}/>
 
+          <br/>
+
+          <label>Earliest Received Date</label>
+          <input
+            type="date"
+            className="input-date"
+            onChange={this.update('minReceivedDate')}/>
+
+
+          <label>Latest Received Date</label>
+          <input
+            type="date"
+            className="input-date"
+            onChange={this.update('maxReceivedDate')}/>
+
+          <br/>
+
+          <label>Quoted Status</label>
+          <select className="dropdown-select" onChange={this.update('quotedStatus')}>
+            <option selected="true" disabled="disabled">TRUE/FALSE</option>
+            <option value="TRUE">TRUE</option>
+            <option value="FALSE">FALSE</option>
+          </select>
+
+          <br/>
           <br/>
 
           <button className="search-button">Search!</button>

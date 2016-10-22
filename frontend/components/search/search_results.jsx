@@ -21,6 +21,9 @@ class SearchResults extends React.Component {
       underwriterName: this.props.location.query.underwriterName,
       minQuoteDate: this.props.location.query.minQuoteDate,
       maxQuoteDate: this.props.location.query.maxQuoteDate,
+      minReceivedDate: this.props.location.query.minReceivedDate,
+      maxReceivedDate: this.props.location.query.maxReceivedDate,
+      quotedStatus: this.props.location.query.quotedStatus,
       page: nextPage,
       sort: this.props.location.query.sort
     };
@@ -42,6 +45,9 @@ class SearchResults extends React.Component {
       underwriterName: this.props.location.query.underwriterName,
       minQuoteDate: this.props.location.query.minQuoteDate,
       maxQuoteDate: this.props.location.query.maxQuoteDate,
+      minReceivedDate: this.props.location.query.minReceivedDate,
+      maxReceivedDate: this.props.location.query.maxReceivedDate,
+      quotedStatus: this.props.location.query.quotedStatus,
       page: 0,
       sort: e.currentTarget.value
     };
@@ -114,7 +120,7 @@ class SearchResults extends React.Component {
             <option value="AGENT_NAME">AGENT NAME</option>
             <option value="RECEIVED_DATE">RECEIVED DATE</option>
             <option value="QUOTED_DATE">QUOTED DATE</option>
-            <option value="BUSINESS_UNIT_NAME">BUSINESS UNIT NAME</option>
+            <option value="OPERATING_UNIT_NAME">OPERATING UNIT NAME</option>
           </select>
         </div>
         <ul>

@@ -104,7 +104,7 @@ class SubmissionList extends React.Component {
             <option value="AGENT_NAME">AGENT NAME</option>
             <option value="RECEIVED_DATE">RECEIVED DATE</option>
             <option value="QUOTED_DATE">QUOTED DATE</option>
-            <option value="BUSINESS_UNIT_NAME">BUSINESS UNIT NAME</option>
+            <option value="OPERATING_UNIT_NAME">OPERATING UNIT NAME</option>
           </select>
         </div>
         <ul>

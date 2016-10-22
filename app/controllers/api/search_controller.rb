@@ -6,6 +6,9 @@ class Api::SearchController < ApplicationController
       .where(underwriterName)
       .where(minQuoteDate)
       .where(maxQuoteDate)
+      .where(minReceivedDate)
+      .where(maxReceivedDate)
+      .where(quotedStatus)
       .order(sortBy)
       .offset(offSet)
       .limit(10)
@@ -41,13 +44,29 @@ class Api::SearchController < ApplicationController
   end
 
   def minQuoteDate
-    date = (params['minQuoteDate'] != "") ? "QUOTED_DATE >= #{params['minQuoteDate']}" : ""
+    date = (params['minQuoteDate'] != "") ? ["QUOTED_DATE >= ?", params['minQuoteDate']] : ""
     return date
   end
 
   def maxQuoteDate
-    date = (params['maxQuoteDate'] != "") ? "QUOTED_DATE <= #{params['maxQuoteDate']}" : ""
+    date = (params['maxQuoteDate'] != "") ? ["QUOTED_DATE <= ?", params['maxQuoteDate']] : ""
     return date
+  end
+
+  def minReceivedDate
+    date = (params['minReceivedDate'] != "") ? ["RECEIVED_DATE >= ?", params['minReceivedDate']] : ""
+    return date
+  end
+
+  def maxReceivedDate
+    date = (params['maxReceivedDate'] != "") ? ["RECEIVED_DATE <= ?", params['maxReceivedDate']] : ""
+    return date
+  end
+
+  def quotedStatus
+    return "" if params['quotedStatus'] == ""
+    return ["QUOTED_DATE != ?", ""] if params['quotedStatus'] == 'TRUE'
+    return ["QUOTED_DATE = ?", ""] if params['quotedStatus'] == 'FALSE'
   end
 
 end
