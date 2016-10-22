@@ -29,7 +29,7 @@ class App extends React.Component {
         <h1 className="main-header">Argo Digital</h1>
         <div className="submission-button-container">
           <div className="submissions-button"
-               onClick={this.migrate}>View All Subissions
+               onClick={this.migrate}>View All Submissions
           </div>
         </div>
         <SearchForm />
