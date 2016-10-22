@@ -63,31 +63,40 @@ class SearchResults extends React.Component {
           <Link to={"/submissions/" + submission.ID}>
             <ul className="submission-listing">
               <li>
-                ID: {submission.ID}
+                <b>ID: </b>
+                {submission.ID}
               </li>
               <li>
-                Agent Name: {submission.AGENT_NAME}
+                <b>Agent Name: </b>
+                 {submission.AGENT_NAME}
               </li>
               <li>
-                Agent Code: {submission.AGENT_CODE}
+                <b>Agent Code: </b>
+                {submission.AGENT_CODE}
               </li>
               <li>
-                Underwrite Name: {submission.UNDERWRITER_NAME}
+                <b>Underwrite Name: </b>
+                {submission.UNDERWRITER_NAME}
               </li>
               <li>
-                Operating Unit Name: {submission.OPERATING_UNIT_NAME}
+                <b>Operating Unit Name: </b>
+                {submission.OPERATING_UNIT_NAME}
               </li>
               <li>
-                Received Date: {submission.RECEIVED_DATE}
+                <b>Received Date: </b>
+                {submission.RECEIVED_DATE}
               </li>
               <li>
-                Quoted Date: {submission.QUOTED_DATE}
+                <b>Quoted Date: </b>
+                {submission.QUOTED_DATE}
               </li>
               <li>
-                Program: {submission.PROGRAM}
+                <b>Program: </b>
+                {submission.PROGRAM}
               </li>
               <li>
-                Insured Name: {submission.INSURED_NAME}
+                <b>Insured Name: </b>
+                {submission.INSURED_NAME}
               </li>
 
             </ul>

@@ -205,3 +205,37 @@
   background: #B22222;
   cursor: pointer;
 }
+
+.submission-detail {
+  background: #f2f2f2;
+  font-size: 14px;
+}
+
+.submission-detail ul {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.submission-detail ul li {
+
+}
+
+.submission-heading {
+  font-weight: 700;
+}
+
+.submission-detail-item {
+  padding-top: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.detail-list li {
+  float: left;
+  width: 320px;
+}
+
+.detail-header {
+  font-weight: 700;
+  font-size: 18px;
+}

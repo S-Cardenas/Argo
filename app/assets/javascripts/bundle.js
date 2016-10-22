@@ -29401,55 +29401,91 @@
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'ID: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'ID: '
+	                ),
 	                submission.ID
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Agent Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Agent Name: '
+	                ),
 	                submission.AGENT_NAME
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Agent Code: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Agent Code: '
+	                ),
 	                submission.AGENT_CODE
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Underwrite Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Underwrite Name: '
+	                ),
 	                submission.UNDERWRITER_NAME
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Operating Unit Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Operating Unit Name: '
+	                ),
 	                submission.OPERATING_UNIT_NAME
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Received Date: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Received Date: '
+	                ),
 	                submission.RECEIVED_DATE
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Quoted Date: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Quoted Date: '
+	                ),
 	                submission.QUOTED_DATE
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Program: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Program: '
+	                ),
 	                submission.PROGRAM
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Insured Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Insured Name: '
+	                ),
 	                submission.INSURED_NAME
 	              )
 	            )
@@ -29473,7 +29509,7 @@
 	            { className: 'dropdown-select', onChange: this.sortBy },
 	            _react2.default.createElement(
 	              'option',
-	              { selected: true, disabled: true },
+	              { selected: 'true', disabled: 'disabled' },
 	              'SORT BY'
 	            ),
 	            _react2.default.createElement(
@@ -29680,55 +29716,91 @@
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'ID: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'ID: '
+	                ),
 	                submission.ID
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Agent Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Agent Name: '
+	                ),
 	                submission.AGENT_NAME
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Agent Code: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Agent Code: '
+	                ),
 	                submission.AGENT_CODE
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Underwrite Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Underwrite Name: '
+	                ),
 	                submission.UNDERWRITER_NAME
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Operating Unit Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Operating Unit Name: '
+	                ),
 	                submission.OPERATING_UNIT_NAME
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Received Date: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Received Date: '
+	                ),
 	                submission.RECEIVED_DATE
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Quoted Date: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Quoted Date: '
+	                ),
 	                submission.QUOTED_DATE
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Program: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Program: '
+	                ),
 	                submission.PROGRAM
 	              ),
 	              _react2.default.createElement(
 	                'li',
 	                null,
-	                'Insured Name: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  'Insured Name: '
+	                ),
 	                submission.INSURED_NAME
 	              )
 	            )
@@ -29885,10 +29957,42 @@
 	    value: function render() {
 	      var submission = this.props.submission;
 	
+	      var keys = Object.keys(submission).map(function (key) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: key, className: 'submission-detail-item' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'submission-heading' },
+	            key,
+	            ':'
+	          ),
+	          submission[key]
+	        );
+	      });
+	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        submission.AGENT_NAME
+	        { className: 'app' },
+	        _react2.default.createElement(
+	          'h1',
+	          { className: 'main-header' },
+	          'Argo Digital'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'submission-detail group' },
+	          _react2.default.createElement(
+	            'container',
+	            { className: 'detail-header' },
+	            'Submission Details'
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'detail-list group' },
+	            keys
+	          )
+	        )
 	      );
 	    }
 	  }]);
